@@ -13,6 +13,9 @@ inputs:
   configuration_path:
     description: "config file path"
     default: ".github/pr-title-checker-config.json"
+  use_local_config:
+    description: "Set to true if you want to use a local config file"
+    default: false
 runs:
   using: "node12"
   main: "dist/index.js"

@@ -3,8 +3,10 @@ import * as github from "@actions/github";
 const [owner, repo] = process.env.GITHUB_REPOSITORY.split("/");
 const issue_number = github.context.issue.number;
 const configPath = process.env.INPUT_CONFIGURATION_PATH;
+const useLocalConfig = process.env.INPUT_USE_LOCAL_CONFIG === "true";
 const passOnOctokitError = process.env.INPUT_PASS_ON_OCTOKIT_ERROR === "true";
 const { Octokit } = require("@octokit/action");
+const { promises: fs } = require('fs')
 
 let octokit;
 
@@ -136,6 +138,11 @@ async function removeLabel(labels, name) {
 }
 
 async function getJSON(repoPath) {
+  if (useLocalConfig) {
+    const content = await fs.readFile(repoPath, 'utf8')
+    return content;
+  }
+
   const response = await octokit.repos.getContent({
     owner,
     repo,
