@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: pr-title-checker
+  description: An action to automatically check if pull request titles conform to Contribution Guidelines
+  annotations:
+    github.com/project-slug: zapay-pagamentos/pr-title-checker
+spec:
+  type: library
+  lifecycle: production
+  owner: darrell
