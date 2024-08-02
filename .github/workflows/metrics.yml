@@ -1,0 +1,17 @@
+name: Scan metrics
+
+on:
+  pull_request:
+    types: [edited, opened, reopened, synchronize]
+
+jobs:
+  scan-sonar:
+    name: Scan Sonar
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
